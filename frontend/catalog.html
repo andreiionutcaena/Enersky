@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog Produse - Enersky</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo"><a href="index.html" style="color: white; text-decoration: none;">Enersky</a></div>
+        <button id="menu-toggle" class="menu-btn"><i class="fas fa-bars"></i> Meniu</button>
+        <nav id="main-menu" class="nav-links">
+            <ul>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="#" id="nav-contact-btn">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="auth-section" style="display: flex; gap: 20px; align-items: center;">
+            <a href="cart.html" style="color: white; text-decoration: none; font-size: 18px; font-weight: bold;">
+                <i class="fas fa-shopping-cart"></i> Coșul meu
+            </a>
+            <a href="login.html" id="nav-user-greeting" class="btn btn-primary">Autentificare</a>
+        </div>
+    </header>
+
+    <main class="catalog-container">
+        
+        <aside class="filters-sidebar">
+            <h3><i class="fas fa-filter"></i> Filtrează Produse</h3>
+            
+            <form id="filter-form">
+                <div class="filter-group">
+                    <h4>Categorie</h4>
+                    <label><input type="checkbox" name="cat" value="panouri"> Panouri Solare</label>
+                    <label><input type="checkbox" name="cat" value="invertoare"> Invertoare</label>
+                    <label><input type="checkbox" name="cat" value="baterii"> Baterii</label>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Preț maxim (RON)</h4>
+                    <input type="range" min="0" max="30000" step="500" value="30000" id="price-range" style="width: 100%; cursor: pointer;">
+                    <div class="price-labels" style="display: flex; justify-content: space-between; margin-top: 5px; font-weight: bold; color: var(--primary-color);">
+                        <span>0</span>
+                        <span id="price-value">30000</span>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Putere/Capacitate (kW)</h4>
+                    <select name="power">
+                        <option value="all">Toate</option>
+                        <option value="3">3 kW</option>
+                        <option value="5">5 kW</option>
+                        <option value="10">10 kW</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn btn-secondary" style="width: 100%;"><i class="fas fa-search"></i> Aplică Filtre</button>
+            </form>
+        </aside>
+
+        <section class="products-display">
+            <div class="catalog-header">
+                <h2>Toate Produsele</h2>
+                <div class="sorting">
+                    <label>Sortează după:</label>
+                    <select id="sort-select">
+                        <option value="noi">Cele mai noi</option>
+                        <option value="cresc">Preț crescător</option>
+                        <option value="descresc">Preț descrescător</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="product-grid-catalog" id="catalog-grid">
+                <p style="grid-column: 1 / -1; text-align: center; padding: 50px;">
+                    <i class="fas fa-spinner fa-spin" style="margin-right: 10px;"></i> Se încarcă catalogul...
+                </p>
+            </div>
+            
+            <div class="pagination" id="pagination-container">
+                </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Enersky SRL</strong></p>
+            <p>Email: suport_enersky@gmail.com | Telefon: +(40)722688405</p>
+            <p>Locatie: Bucuresti, Romania</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

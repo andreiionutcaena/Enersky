@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enersky - Echipamente Energie Regenerabila</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo"><a href="index.html" style="color: white; text-decoration: none;">Enersky</a></div>
+        <button id="menu-toggle" class="menu-btn"><i class="fas fa-bars"></i> Meniu</button>
+        <nav id="main-menu" class="nav-links">
+            <ul>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="#" id="nav-contact-btn">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="auth-section" style="display: flex; gap: 20px; align-items: center;">
+            <a href="cart.html" style="color: white; text-decoration: none; font-size: 18px; font-weight: bold;">
+                <i class="fas fa-shopping-cart"></i> Coșul meu
+            </a>
+            <a href="login.html" id="nav-user-greeting" class="btn btn-primary">Autentificare</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Sisteme pe baza de Energie Regenerabila de la Distribuitori Profesionisti</h1>
+            <p>Descopera echipamente compatibile...</p>
+            <a href="catalog.html" class="btn btn-large">Vezi Catalogul</a>
+        </div>
+    </section>
+
+    <section class="popular-products">
+        <h2>Produse Noi</h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper" id="recent-products-wrapper">
+                </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <p><strong>Enersky SRL</strong></p>
+            <p>Email: suport_enersky@gmail.com | Telefon: +(40)722688405</p>
+            <p>Locatie: Bucuresti, Romania</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

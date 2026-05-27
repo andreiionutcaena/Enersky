@@ -1,0 +1,21 @@
+# Node modules
+node_modules/
+
+# Variabile de mediu
+.env
+
+# Logs
+npm-debug.log
+logs/
+*.log
+
+# Sistem operare
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Build folders
+dist/
+build/

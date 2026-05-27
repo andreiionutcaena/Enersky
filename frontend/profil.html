@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilul Meu - Enersky</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo"><a href="index.html" style="color: white; text-decoration: none;">Enersky</a></div>
+        <button id="menu-toggle" class="menu-btn"><i class="fas fa-bars"></i> Meniu</button>
+        <nav id="main-menu" class="nav-links">
+            <ul>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="#" id="nav-contact-btn">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="auth-section" style="display: flex; gap: 20px; align-items: center;">
+            <a href="cart.html" style="color: white; text-decoration: none; font-size: 18px; font-weight: bold;"><i class="fas fa-shopping-cart"></i> Coșul meu</a>
+            <a href="profil.html" id="nav-user-greeting" class="btn btn-primary" style="background-color: var(--accent-color); color: #000;">Contul meu</a>
+        </div>
+    </header>
+
+    <main class="profile-page-container">
+        
+        <aside class="profile-sidebar">
+            <div class="user-avatar">
+                <i class="fas fa-user-circle"></i>
+                <h3 id="sidebar-user-name">Se încarcă...</h3>
+                <span id="sidebar-user-role" class="role-badge">...</span>
+            </div>
+            
+            <ul class="profile-nav">
+                <li><button class="prof-nav-btn active" data-target="date-cont"><i class="fas fa-id-card"></i> Datele Contului</button></li>
+                <li><button class="prof-nav-btn" data-target="comenzi"><i class="fas fa-box-open"></i> Comenzile Mele</button></li>
+                <li id="nav-adauga-produs" style="display: none;"><button class="prof-nav-btn" data-target="adauga-produs"><i class="fas fa-plus-circle"></i> Adaugă Produs</button></li>
+                <li id="nav-produsele-mele" style="display: none;"><button class="prof-nav-btn" data-target="produsele-mele"><i class="fas fa-th-list"></i> Gestiune stoc</button></li>
+                <li id="nav-gestiune-comenzi" style="display: none;"><button class="prof-nav-btn" data-target="gestiune-comenzi"><i class="fas fa-clipboard-list"></i> Gestiune Comenzi</button></li>
+                <li id="nav-admin-aprobari" style="display: none;"><button class="prof-nav-btn" data-target="admin-aprobari"><i class="fas fa-user-check"></i> Aprobări Conturi</button></li>
+                <li id="nav-admin-mesaje" style="display: none;"><button class="prof-nav-btn" data-target="admin-mesaje"><i class="fas fa-envelope"></i> Mesaje Contact</button></li>
+                <li><button id="btn-logout" class="prof-nav-btn text-danger"><i class="fas fa-sign-out-alt"></i> Deconectare</button></li>
+            </ul>
+        </aside>
+
+        <section class="profile-content">
+            
+            <div id="date-cont" class="profile-section">
+                <h2>Informații Cont</h2>
+                <div class="profile-card" id="profile-info-card">
+                    <p style="text-align: center; padding: 20px;">Se încarcă datele utilizatorului...</p>
+                </div>
+            </div>
+
+            <div id="comenzi" class="profile-section hidden">
+                <h2>Istoric Comenzi</h2>
+                <div class="profile-card">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #eee;">
+                                <th style="padding: 15px 10px;">Data</th>
+                                <th style="padding: 15px 10px;">Produse Cumpărate</th>
+                                <th style="padding: 15px 10px;">Total</th>
+                                <th style="padding: 15px 10px;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-comenzi-client">
+                            <tr><td colspan="4" style="text-align: center; padding: 30px;">Apasă pe tab pentru a încărca comenzile...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="adauga-produs" class="profile-section hidden">
+                <h2>Adaugă Produs în Marketplace</h2>
+                <div class="profile-card">
+                    <form id="form-adauga-produs">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="info-group">
+                                <label>Nume Produs</label>
+                                <input type="text" id="prod-nume" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                            </div>
+                            <div class="info-group">
+                                <label>Categorie</label>
+                                <select id="prod-categorie" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                                    <option value="panouri">Panouri Solare</option>
+                                    <option value="invertoare">Invertoare</option>
+                                    <option value="baterii">Baterii</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="info-group">
+                                <label>Preț (RON)</label>
+                                <input type="number" id="prod-pret" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                            </div>
+                            <div class="info-group">
+                                <label>Stoc Disponibil (Bucăți)</label>
+                                <input type="number" id="prod-stoc" required value="1" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <label>URL Imagine (Link)</label>
+                            <input type="text" id="prod-imagine" placeholder="https://..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                        </div>
+                        <div class="info-group">
+                            <label>Specificații Tehnice (Text)</label>
+                            <textarea id="prod-spec" rows="2" placeholder="Ex: Producător: Huawei, SKU: 12345, Eficiență: 98%" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                        </div>
+                        <div class="info-group">
+                            <label>Descriere Detaliată</label>
+                            <textarea id="prod-descriere" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="background-color: var(--accent-color); color: #000; width: 100%; padding: 12px; font-weight: bold; border:none; border-radius: 4px; cursor: pointer;">
+                            <i class="fas fa-check"></i> Publică Produsul
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="produsele-mele" class="profile-section hidden">
+                <h2>Gestiune stoc</h2>
+                <div style="margin-bottom: 20px; padding: 15px; background: #f0f8ff; border-radius: 8px; border: 1px dashed #3498db; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Actualizare rapidă din CSV</h4>
+                        <p style="font-size: 12px; color: #555;">Fișierul trebuie să aibă fix aceste coloane pe primul rând: <strong>id, pret, stoc</strong></p>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="file" id="csv-upload" accept=".csv" style="border: 1px solid #ccc; padding: 5px; border-radius: 4px; background: white;">
+                        <button id="btn-upload-csv" class="btn btn-secondary" style="background: #3498db; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                            <i class="fas fa-upload"></i> Încarcă
+                        </button>
+                    </div>
+                </div>
+                <div class="profile-card">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Produs</th>
+                                <th>Categorie</th>
+                                <th>Preț</th>
+                                <th>Stoc</th>
+                                <th>Acțiuni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-produse-distribuitor">
+                            <tr><td colspan="5" style="text-align: center; padding: 30px;">Apasă pe tab pentru a încărca...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="gestiune-comenzi" class="profile-section hidden">
+                <h2>Gestiune Comenzi Clienți</h2>
+                <div class="profile-card">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #eee;">
+                                <th style="padding: 15px 10px;">Data & Client</th>
+                                <th style="padding: 15px 10px;">Produse</th>
+                                <th style="padding: 15px 10px;">Adresă Livrare</th>
+                                <th style="padding: 15px 10px;">Status Nou</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-comenzi-admin">
+                            <tr><td colspan="4" style="text-align: center; padding: 30px;">Apasă pe tab pentru a încărca...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="admin-aprobari" class="profile-section hidden">
+                <h2 style="margin-bottom: 20px; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px;">Aprobare Distribuitori Noi</h2>
+                <div class="profile-card" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 100%; overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #eee;">
+                                <th style="padding: 15px 10px; color: #555;">Nume Firmă</th>
+                                <th style="padding: 15px 10px; color: #555;">Email</th>
+                                <th style="padding: 15px 10px; color: #555;">CUI</th>
+                                <th style="padding: 15px 10px; color: #555;">Acțiune</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-aprobari">
+                            <tr><td colspan="4" style="text-align: center; padding: 30px;">Apasă pe tab pentru a încărca...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="admin-mesaje" class="profile-section hidden">
+                <h2 style="margin-bottom: 20px; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px;">Mesaje de la Clienți</h2>
+                <div class="profile-card" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 100%; overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #eee;">
+                                <th style="padding: 15px 10px; color: #555;">Data</th>
+                                <th style="padding: 15px 10px; color: #555;">Expeditor</th>
+                                <th style="padding: 15px 10px; color: #555;">Subiect & Mesaj</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-mesaje">
+                            <tr><td colspan="3" style="text-align: center; padding: 30px;">Apasă pe tab pentru a încărca mesajele...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>        
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Enersky SRL</strong></p>
+            <p>Email: suport_enersky@gmail.com | Telefon: +(40)722688405</p>
+            <p>Locatie: Bucuresti, Romania</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

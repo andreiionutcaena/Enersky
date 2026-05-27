@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coșul Meu - Enersky</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo"><a href="index.html" style="color: white; text-decoration: none;">Enersky</a></div>
+        <button id="menu-toggle" class="menu-btn"><i class="fas fa-bars"></i> Meniu</button>
+        <nav id="main-menu" class="nav-links">
+            <ul>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="#" id="nav-contact-btn">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="auth-section" style="display: flex; gap: 20px; align-items: center;">
+            <a href="cart.html" style="color: var(--accent-color); text-decoration: none; font-size: 18px; font-weight: bold;">
+                <i class="fas fa-shopping-cart"></i> Coșul meu
+            </a>
+            <a href="login.html" id="nav-user-greeting" class="btn btn-primary">Autentificare</a>
+        </div>
+    </header>
+
+    <main style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+        <h1 style="margin-bottom: 30px; color: var(--primary-color);">Coșul de cumpărături</h1>
+        
+        <div class="cart-layout" style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start;">
+            
+            <div id="cart-items-container" class="cart-items-section" style="background: #fdfdfd; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <p style="text-align: center; padding: 20px;">
+                    <i class="fas fa-spinner fa-spin" style="margin-right: 10px;"></i> Se încarcă produsele din coș...
+                </p>
+            </div>
+
+            <div class="cart-summary-section" style="background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h3 style="border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">Sumar Comandă</h3>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 16px;">
+                    <span>Subtotal:</span>
+                    <strong id="cart-total-price">0 RON</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 16px;">
+                    <span>Transport:</span>
+                    <strong style="color: #27ae60;">Gratuit</strong>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 20px; border-top: 2px solid #eee; padding-top: 15px;">
+                    <strong>TOTAL:</strong>
+                    <strong id="cart-final-price" style="color: var(--primary-color);">0 RON</strong>
+                </div>
+
+                <button id="btn-checkout" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 18px; background: var(--accent-color); color: #000; border: none; cursor: pointer; border-radius: 4px; font-weight: bold;">
+                    Mergi la Casă <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+                </button>
+
+                <div id="checkout-form-container" style="display: none; margin-top: 20px; border-top: 2px solid #eee; padding-top: 20px;">
+                    <h4 style="margin-bottom: 15px;">Detalii Livrare și Plată</h4>
+                    <form id="form-plaseaza-comanda">
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 5px; font-size: 14px;">Adresa completă de livrare</label>
+                            <textarea id="checkout-adresa" required rows="3" placeholder="Strada, Număr, Oraș, Județ..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 5px; font-size: 14px;">Date de facturare (Opțional dacă e la fel cu livrarea)</label>
+                            <textarea id="checkout-facturare" rows="2" placeholder="CUI, Nume Firmă, Adresă facturare..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 5px; font-size: 14px;">Metoda de Plată</label>
+                            <select id="checkout-plata" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: 'FontAwesome', sans-serif;">
+                                <option value="Card">&#xf09d; Card Bancar</option>
+                                <option value="Apple Pay">&#xf415; Apple Pay</option>
+                                <option value="Google Pay">&#xf1a0; Google Pay</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 18px; background: #27ae60; color: white; border: none; cursor: pointer; border-radius: 4px; font-weight: bold;">
+                            <i class="fas fa-check-circle" style="margin-right: 5px;"></i> Confirmă și Plătește
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Enersky SRL</strong></p>
+            <p>Email: suport_enersky@gmail.com | Telefon: +(40)722688405</p>
+            <p>Locatie: Bucuresti, Romania</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
