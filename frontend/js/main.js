@@ -553,8 +553,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div style="display: flex; gap: 10px; padding: 15px; background: #fff; border-top: 1px solid #eee;">
                         <input type="number" id="catalog-qty-${prod._id}" value="1" min="1" max="${prod.stoc > 0 ? prod.stoc : 1}" style="width: 60px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-weight: bold;" ${prod.stoc === 0 ? 'disabled' : ''}>
-                        <button class="btn btn-secondary add-to-cart-btn" 
-                            data-id="${prod._id}" data-nume="${prod.nume}" data-pret="${prod.pret}" data-imagine="${prod.imagine}"
+                       <button class="btn btn-secondary add-to-cart-btn" 
+                            data-id="${prod._id}" data-nume="${prod.nume}" data-pret="${prod.pret}" data-imagine="${prod.imagine}" data-stoc="${prod.stoc}"
                             style="flex-grow: 1; border-radius: 4px; padding: 10px; font-weight: bold; ${prod.stoc === 0 ? 'background: #ccc; cursor: not-allowed;' : 'background: var(--accent-color); color: #000; cursor: pointer;'}" 
                             ${prod.stoc === 0 ? 'disabled' : ''}>
                              <i class="fas fa-shopping-cart"></i> Adaugă
@@ -665,14 +665,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (btn) {
                 const id = btn.getAttribute('data-id');
                 const qtyInput = document.getElementById(`catalog-qty-${id}`);
-                const qty = qtyInput ? parseInt(qtyInput.value) : 1;
+                const maxStoc = parseInt(btn.getAttribute('data-stoc')) || 1;
+                let qty = qtyInput ? parseInt(qtyInput.value) : 1;
+
+                if (qty > maxStoc) {
+                    showToast(`Stoc maxim disponibil: ${maxStoc} buc.`, 'error');
+                    qtyInput.value = maxStoc;
+                    qty = maxStoc;
+                }
                 
                 const item = {
                     id: id,
                     nume: btn.getAttribute('data-nume'),
                     pret: Number(btn.getAttribute('data-pret')),
                     imagine: btn.getAttribute('data-imagine'),
-                    cantitate: qty 
+                    stoc: Number(btn.getAttribute('data-stoc')),
+                    cantitate: qty
                 };
 
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -735,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 singleProductContainer.innerHTML = `
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px;" class="product-details-top">
+                    <div class="product-details-top">
                         <div class="product-image-large" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                             ${imgHtml}
                         </div>
@@ -777,9 +785,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         const qty = parseInt(document.getElementById('qty-input').value) || 1;
                         let cart = JSON.parse(localStorage.getItem('cart')) || [];
                         const existing = cart.find(p => p.id === prod._id);
-                        if (existing) existing.cantitate += qty;
-                        else cart.push({ id: prod._id, nume: prod.nume, pret: prod.pret, imagine: prod.imagine, cantitate: qty });
-                        
+                        if (existing) {
+                            const total = existing.cantitate + qty;
+                            existing.cantitate = total > prod.stoc ? prod.stoc : total;
+                            if (total > prod.stoc) showToast(`Stoc maxim disponibil: ${prod.stoc} buc.`, 'error');
+                        } else {
+                            cart.push({ id: prod._id, nume: prod.nume, pret: prod.pret, imagine: prod.imagine, stoc: prod.stoc, cantitate: qty });
+                        }
                         localStorage.setItem('cart', JSON.stringify(cart));
                         showToast(`Ai adăugat ${qty} x ${prod.nume} în coș.`, 'success');
                     });
@@ -859,15 +871,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     : `<div style="width: 80px; height: 80px; background: #eee; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-size: 10px;">N/A</div>`;
 
                 cartContainer.innerHTML += `
-                    <div class="cart-item" style="display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 15px; border-bottom: 1px solid #eee;">
-                        <div style="display: flex; align-items: center; gap: 15px; width: 50%;">
+                    <div class="cart-item">
+                        <div class="cart-item-left">
                             <a href="produs.html?id=${item.id}" class="item-image-small">${imgHtml}</a>
                             <div class="item-details">
                                 <a href="produs.html?id=${item.id}" style="text-decoration: none; color: inherit;"><h4 style="margin: 0 0 5px 0; font-size: 18px;">${item.nume}</h4></a>
                                 <span style="color: var(--primary-color); font-weight: bold;">${item.pret} RON</span>
                             </div>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 20px;">
+                        <div class="cart-item-right">
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <label style="font-size: 14px; color: #666;">Buc:</label>
                                 <input type="number" min="1" value="${item.cantitate}" data-index="${index}" class="cart-qty-input qty-input-cart" style="width: 60px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 4px;">
@@ -893,9 +905,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
                 const idx = e.target.getAttribute('data-index');
                 const newQty = parseInt(e.target.value);
-                cart[idx].cantitate = newQty > 0 ? newQty : 1;
+                const maxStoc = parseInt(e.target.max) || 9999;
+
+                if (newQty > maxStoc) {
+                    e.target.value = maxStoc;
+                    showToast(`Stoc maxim disponibil: ${maxStoc} buc.`, 'error');
+                    cart[idx].cantitate = maxStoc;
+                } else {
+                    cart[idx].cantitate = newQty > 0 ? newQty : 1;
+                }
+
                 localStorage.setItem('cart', JSON.stringify(cart));
-                renderCart(); 
+                renderCart();
             }
         });
 
