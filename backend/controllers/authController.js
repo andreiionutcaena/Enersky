@@ -10,8 +10,8 @@ const crypto = require('crypto');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'andreiionutcanea@gmail.com',
-        pass: 'jkwpjkuwjqadicmv' 
+        user: 'Placeholder_USER',
+        pass: 'Placeholder_PASSWORD' 
     }
 });
 
